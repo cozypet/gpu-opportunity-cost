@@ -459,6 +459,73 @@ body {
   font-size: 18px; font-weight: 300;
   color: var(--dark-muted); line-height: 1.45;
 }
+
+/* =========== D09: DURABILITY SCORECARD =========== */
+.scorecard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.score-row {
+  display: grid;
+  grid-template-columns: 220px 150px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  background: var(--light);
+}
+.score-row.r-green  { background: var(--green-soft);  border-color: var(--green-mid); }
+.score-row.r-amber  { background: var(--amber-soft);  border-color: var(--amber-mid); }
+.score-row.r-orange { background: var(--orange-soft); border-color: var(--orange-mid); }
+.score-row.r-red    { background: var(--red-soft);    border-color: var(--red-mid); }
+
+.score-archetype {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.score-archetype-name {
+  font-size: 20px; font-weight: 600; color: var(--dark); line-height: 1.2;
+}
+.score-archetype-co {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px; font-weight: 500;
+  color: var(--dark-faint);
+  text-transform: uppercase; letter-spacing: 0.7px;
+}
+.score-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 100px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.7px;
+  white-space: nowrap;
+  justify-self: start;
+}
+.score-pill.p-green  { background: var(--green);  color: var(--light); }
+.score-pill.p-amber  { background: var(--amber);  color: var(--light); }
+.score-pill.p-orange { background: var(--orange); color: var(--light); }
+.score-pill.p-red    { background: var(--red);    color: var(--light); }
+.score-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--light);
+}
+.score-reason {
+  font-size: 17px; font-weight: 400;
+  color: var(--dark-soft); line-height: 1.45;
+}
+.score-header {
+  display: grid;
+  grid-template-columns: 220px 150px 1fr;
+  gap: 20px;
+  padding: 0 22px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  color: var(--dark-faint);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 8px;
+}
 </style>
 </head>
 <body>
@@ -466,7 +533,7 @@ body {
 <!-- D01: TWO ERAS -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">01 / 08</div>
+    <div class="card-number">01 / 09</div>
     <div class="card-title">The Shift Nobody Named</div>
     <div class="card-sub">From "grab users at any cost" to "which use of this GPU-hour returns the most?"</div>
     <div class="card-body">
@@ -491,7 +558,7 @@ body {
 <!-- D02: CAPEX BAR CHART -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">02 / 08</div>
+    <div class="card-number">02 / 09</div>
     <div class="card-title">2025 Capital Expenditure: The Scale of the Bet</div>
     <div class="card-sub">Four companies will spend over $380 billion on AI infrastructure in a single year</div>
     <div class="card-body">
@@ -523,7 +590,7 @@ body {
 <!-- D03: SIX ARCHETYPES GRID -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">03 / 08</div>
+    <div class="card-number">03 / 09</div>
     <div class="card-title">Six Archetypes of Opportunity-Cost Strategy</div>
     <div class="card-sub">Stack position determines archetype. Archetype determines strategic options.</div>
     <div class="card-body">
@@ -579,7 +646,7 @@ body {
 <!-- D04: STACK OWNERSHIP MATRIX -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">04 / 08</div>
+    <div class="card-number">04 / 09</div>
     <div class="card-title">What Each Archetype Owns in the Stack</div>
     <div class="card-sub">The more layers you own, the more reallocation options you have</div>
     <div class="card-body">
@@ -605,7 +672,7 @@ body {
 <!-- D05: REALLOCATION OPTIONS -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">05 / 08</div>
+    <div class="card-number">05 / 09</div>
     <div class="card-title">When Compute Gets Scarce, What Does Each Archetype Do?</div>
     <div class="card-sub">Integrated players reallocate. Pure renters cut.</div>
     <div class="card-body">
@@ -664,7 +731,7 @@ body {
 <!-- D06: REVENUE SPECTRUM -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">06 / 08</div>
+    <div class="card-number">06 / 09</div>
     <div class="card-title">Revenue Per GPU-Hour Across Archetypes</div>
     <div class="card-sub">The integrated players extract dramatically more value from the same silicon</div>
     <div class="card-body">
@@ -709,7 +776,7 @@ body {
 <!-- D07: PROPAGATION LAYERS -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">07 / 08</div>
+    <div class="card-number">07 / 09</div>
     <div class="card-title">Opportunity-Cost Logic Propagates Downward</div>
     <div class="card-sub">Every layer of the stack faces the same question: what is this compute-hour worth?</div>
     <div class="card-body">
@@ -754,7 +821,7 @@ body {
 <!-- D08: SORA TIMELINE -->
 <div class="diagram-container">
   <div class="card">
-    <div class="card-number">08 / 08</div>
+    <div class="card-number">08 / 09</div>
     <div class="card-title">The Sora Pattern: From Viral Launch to Shutdown in Under a Year</div>
     <div class="card-sub">What happens when a pure renter's product scales faster than its rented capacity</div>
     <div class="card-body">
@@ -793,6 +860,74 @@ body {
       </div>
     </div>
     <div class="callout callout-orange">If your vendor ships a consumer product on your infrastructure, watch for this pattern</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D09: DURABILITY SCORECARD -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">09 / 09</div>
+    <div class="card-title">Which Positions Survive 2028?</div>
+    <div class="card-sub">Ranked by durability of the opportunity-cost advantage, most durable at top</div>
+    <div class="card-body">
+      <div class="score-header">
+        <span>Archetype</span>
+        <span>Durability</span>
+        <span>Why it holds, or doesn't</span>
+      </div>
+      <div class="scorecard">
+        <div class="score-row r-green">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Flywheel</div>
+            <div class="score-archetype-co">Alphabet</div>
+          </div>
+          <div class="score-pill p-green"><span class="score-dot"></span>Most durable</div>
+          <div class="score-reason">Owns all four layers. Only regulatory fragmentation of search breaks this position.</div>
+        </div>
+        <div class="score-row r-green">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Fortress</div>
+            <div class="score-archetype-co">Meta</div>
+          </div>
+          <div class="score-pill p-green"><span class="score-dot"></span>Durable</div>
+          <div class="score-reason">Closed loop intact today. Watch 2027 as training costs outgrow ad revenue, external capacity buys rising.</div>
+        </div>
+        <div class="score-row r-amber">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Upseller</div>
+            <div class="score-archetype-co">Microsoft</div>
+          </div>
+          <div class="score-pill p-amber"><span class="score-dot"></span>Binary</div>
+          <div class="score-reason">Works if Copilot retention clears the 18-month enterprise renewal cycle. Watch FY27 Q2.</div>
+        </div>
+        <div class="score-row r-amber">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Kingmaker</div>
+            <div class="score-archetype-co">Amazon</div>
+          </div>
+          <div class="score-pill p-amber"><span class="score-dot"></span>Concentrated</div>
+          <div class="score-reason">Strategy rests on one counterparty. AWS base is a buffer, not a replacement.</div>
+        </div>
+        <div class="score-row r-orange">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Preferred Tenant</div>
+            <div class="score-archetype-co">Anthropic</div>
+          </div>
+          <div class="score-pill p-orange"><span class="score-dot"></span>Decaying</div>
+          <div class="score-reason">Four-landlord leverage lasts only while none of them has a competitive first-party model.</div>
+        </div>
+        <div class="score-row r-red">
+          <div class="score-archetype">
+            <div class="score-archetype-name">The Exposed</div>
+            <div class="score-archetype-co">OpenAI</div>
+          </div>
+          <div class="score-pill p-red"><span class="score-dot"></span>Fragile</div>
+          <div class="score-reason">No silicon, no cloud. First Stargate sites and Titan chip both arrive after the crunch hits.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-blue">Best model does not win. Owning enough of the stack that the opportunity-cost gap cannot close does.</div>
     <div class="attribution">Created by Han HELOIR YAN</div>
   </div>
 </div>
