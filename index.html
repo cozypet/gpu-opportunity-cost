@@ -22,17 +22,17 @@ hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
 
 <p>Compute allocation is now strategy at every level of the stack. All the way down to your sprint backlog.</p>
 
-<p>If you build on a hyperscaler, you are already a bidder in an internal auction nobody told you you entered. To understand why, and what to do about it, start 25 years ago.</p>
+<p>If you build on a hyperscaler, you are already a bidder in an internal auction nobody told you you entered. Here is why, and what to do about it.</p>
 
-<p>For the last 25 years, internet companies grew on one economic fact: the marginal cost of serving one more user was close to zero. One more Gmail account, one more Facebook scroll, one more YouTube view cost Google and Meta almost nothing to serve. When serving the next user is free, the strategy writes itself: grab as many users as possible, monetize them later. Every free to use consumer app since 2005 grew this way.</p>
+<p>For 25 years, internet companies grew on one economic fact: serving one more user cost almost nothing. Gmail, Facebook, YouTube, Netflix, Uber. Grab as many users as possible, monetize later. The strategy wrote itself when the marginal cost was zero.</p>
 
-<p>AI broke this assumption. Every ChatGPT message consumes a measurable fraction of a GPU hour, and that GPU hour has a real price: between $1.50 and $7 depending on who you rent from. The marginal cost of one more user is no longer zero. It is non trivial, it compounds, and it has a name on the balance sheet.</p>
+<p>AI broke that. Every ChatGPT message consumes a measurable fraction of a GPU hour, and that hour costs $1.50 to $7 depending on who you rent from. The marginal cost of one more user is no longer zero. It compounds, and it has a name on the balance sheet.</p>
 
-<p>When marginal cost stops being zero, a second cost starts to matter: opportunity cost. If serving this user costs a real GPU hour, then every hour spent on one thing is an hour not spent on another. The strategic question shifts from "how do we acquire more users?" to "of everything this GPU hour could be doing, what returns the most?"</p>
+<p>When marginal cost stops being zero, a second cost takes over: opportunity cost. Every GPU hour spent on one thing is an hour not spent on another. The question shifts from "how do we acquire more users?" to "of everything this hour could do, what returns the most?"</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-01.png" alt="The Shift Nobody Named: Marginal Cost Era vs Opportunity Cost Era">
 
-<p>This shift is already visible in the earnings calls. Microsoft has $400 billion of signed contracts it cannot deliver fast enough, and its CEO publicly admits the company turns away paying customers because the same compute is worth more inside Copilot. Alphabet raised its 2025 capex from $53 billion to $93 billion and still cannot build capacity fast enough to match demand. These are not growth numbers. They are allocation numbers.</p>
+<p>It shows up in every earnings call. Microsoft has $400 billion of signed contracts it cannot deliver, and its CEO publicly turns customers away because the same compute is worth more inside Copilot. Alphabet raised 2025 capex from $53 billion to $93 billion and still cannot build fast enough. These are not growth numbers. They are allocation numbers.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-02.png" alt="2025 Capital Expenditure: The Scale of the Bet">
 
@@ -44,83 +44,59 @@ hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
 
 <h2>Six Archetypes of Opportunity Cost Strategy</h2>
 
-<p>Under opportunity cost economics, every AI company falls into one of six archetypes based on what it owns in the stack: silicon, cloud, first party product, distribution. The archetype determines which strategic options are even available. Model quality does not change it. Harness quality does not change it. Stack position does.</p>
-
-<p>Here are the six.</p>
+<p>Every AI company falls into one of six archetypes based on what it owns: silicon, cloud, first party product, distribution. Stack position determines the strategic options. Model quality does not change it. Harness quality does not change it.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-03.png" alt="Six Archetypes of Opportunity Cost Strategy">
 
 <h3>The Upseller: Microsoft</h3>
 
-<p>Microsoft figured out something that, in hindsight, seems obvious: why sell a GPU hour for $3 to $7 to an Azure customer when you can wrap that same hour into a $30 per month Copilot subscription and get dramatically more out of it?</p>
+<p>Why sell a GPU hour for $3 to $7 on Azure when you can wrap it into a $30 per month Copilot seat and extract an order of magnitude more?</p>
 
-<p>Fifteen million enterprise seats are now paying $30 a month for M365 Copilot, generating roughly $5.4 billion in annualized revenue, up 160% in a single year. A GPU hour serving dozens of concurrent Copilot users contributes to a revenue stream directionally an order of magnitude larger than the same hour rented as raw Azure compute. Microsoft does not publish per GPU Copilot economics, but the revealed preference is loud: CFO Amy Hood confirmed that Azure capacity is being prioritized for Copilot, security, and GitHub over third party customers. The CEO is on the record saying the company turns away paying Azure demand because serving it "is not in our long term interest."</p>
+<p>Fifteen million enterprise seats now pay $30 a month for M365 Copilot, generating roughly $5.4 billion in annualized revenue, up 160% in a year. CFO Amy Hood confirmed Azure capacity is prioritized for Copilot, security, and GitHub over third party customers. The CEO is on record saying Microsoft turns away Azure demand because serving it "is not in our long term interest."</p>
 
-<p>Read that sentence again. Microsoft is choosing to lose Azure revenue today because the same silicon generates more value inside Copilot.</p>
-
-<p>The risk is straightforward: the Azure customers getting rationed today have alternatives. If enough of them defect to GCP or AWS before Copilot retention matures, Microsoft will have traded a large base of loyal IaaS customers for a SaaS bet that has not yet proven sticky at scale.</p>
+<p>Read that again. Microsoft is choosing to lose Azure revenue today because the same silicon generates more value inside Copilot.</p>
 
 <h3>The Flywheel: Alphabet</h3>
 
-<p>Alphabet is the only player in this game that owns the entire vertical. They design their own silicon (TPUs). They run their own cloud (GCP). They operate their own consumer AI products (Gemini, AI Overviews). And they sit on top of the largest advertising business in history, $300 billion and growing.</p>
+<p>Alphabet is the only player that owns the full vertical. TPUs. GCP. Gemini and AI Overviews. And the largest ad business in history, $300 billion and growing. Every GPU hour in the Alphabet stack feeds the same flywheel. Gemini processes 7 billion tokens per minute and its app has 650 million monthly users, all running on chips Google owns.</p>
 
-<p>GPU hours routed to any part of Alphabet's stack feed the same ad flywheel. Gemini processes 7 billion tokens per minute. The Gemini App has 650 million monthly active users. Google is running inference at ChatGPT scale without paying anyone else's compute rental tax, because they own the chips underneath.</p>
-
-<p>But there is a counterintuitive wrinkle. AI Overviews, the AI generated summaries that now sit above traditional Search results, may depress the per query click yield of classic blue link ads. Google is spending compute to potentially cannibalize its own highest margin product.</p>
-
-<p>Why would they do this? Because letting a competitor cannibalize it first is worse. Alphabet is racing against itself, because racing against anyone else would be losing.</p>
+<p>The counterintuitive wrinkle: AI Overviews may depress the per query click yield of classic blue link ads. Alphabet is spending compute to cannibalize its own highest margin product. The logic is that letting a competitor cannibalize it first is worse. Alphabet is racing against itself because racing against anyone else would be losing.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-04.png" alt="What Each Archetype Owns in the Stack">
 
 <h3>The Kingmaker: Amazon</h3>
 
-<p>Amazon is making the strangest bet of any hyperscaler.</p>
+<p>Amazon dedicated roughly 500,000 Trainium2 chips to a single customer through Project Rainier. Not to thousands of AWS enterprise customers. Not to Bedrock. To Anthropic. With plans to scale to one million chips.</p>
 
-<p>Through Project Rainier, Amazon dedicated approximately 500,000 Trainium2 chips to a single customer: Anthropic. Not to thousands of AWS enterprise customers. Not to the Bedrock inference platform. To one company. With plans to scale that allocation to one million chips.</p>
+<p>In Q3 2025 alone, Amazon booked a $9.5 billion pretax gain on its Anthropic stake. More than those 500,000 chips would have earned running third party inference in the same window. The equity appreciation beat the IaaS yield in a single quarter.</p>
 
-<p>In Q3 2025 alone, Amazon booked a $9.5 billion pretax gain on its Anthropic stake. That is more than those 500,000 chips would have earned running inference for third party customers over the same period. The equity appreciation from a single quarter beat the IaaS yield.</p>
-
-<p>But the equity gain is only half the logic. Every chip Anthropic uses for frontier model training is also a reference deployment for Trainium, Amazon's custom silicon. If Trainium can train Claude, it can train anything, and that is the pitch Amazon needs to sell Trainium to the rest of the market. Amazon is paying opportunity cost in compute hours and redeeming it in both equity and silicon credibility.</p>
-
-<p>The risk is concentration. The whole strategy rests on one counterparty. If Anthropic falters, the equity unwinds and the Trainium reference story breaks in the same quarter.</p>
+<p>But equity is only half the logic. Every chip Anthropic uses for frontier training is also a reference deployment for Trainium. If it can train Claude, it can train anything. That is the pitch Amazon needs to sell Trainium to everyone else. Amazon pays the opportunity cost in compute and redeems it in both equity and silicon credibility.</p>
 
 <h3>The Fortress: Meta</h3>
 
-<p>Meta has no cloud business. There is no "Meta Cloud" you can buy GPU hours from. Every chip Meta buys goes directly into Instagram ranking, Reels recommendations, Advantage+ ad optimization, or Meta Superintelligence Labs training runs.</p>
+<p>Meta has no cloud business. Every chip goes directly into Instagram ranking, Reels recommendations, Advantage+ ad optimization, or Superintelligence Labs training runs.</p>
 
-<p>This is the structurally simplest position in the AI economy. In Q3 2025, AI ranking improvements alone drove time on Facebook up 5% and time on Threads up 10%. Revenue hit $51.2 billion at a 40% operating margin across 3.54 billion daily active users. Meta does not need to ask the question that keeps every other hyperscaler's CFO awake: "should we sell this compute externally, or use it internally?" There is no external. There is only the product.</p>
+<p>In Q3 2025, AI ranking alone drove time on Facebook up 5% and time on Threads up 10%. Revenue hit $51.2 billion at a 40% operating margin across 3.54 billion daily actives. Meta does not ask the question that keeps every other hyperscaler CFO awake: "should we sell this externally, or use it internally?" There is no external. There is only the product.</p>
 
-<p>When the operator and the customer are the same entity, opportunity cost collapses to a single, much simpler question: of all the things we could be ranking better right now, which one moves revenue the most?</p>
-
-<p>Meta raised $30 billion in bonds to fund 2025 capex. It has $40 billion in trailing free cash flow. No allocation guilt. No capacity rationing announcements. No Nadella style admissions about turning customers away.</p>
-
-<p>The twist: Meta is now also buying supplementary capacity from third party clouds. It has become a compute buyer with no compute seller position to offset. A different kind of dependency, but dependency nonetheless.</p>
+<p>Meta raised $30 billion in bonds for 2025 capex. It has $40 billion in trailing free cash flow. No allocation guilt. No rationing announcements.</p>
 
 <h3>The Preferred Tenant: Anthropic</h3>
 
-<p>Anthropic does not own silicon. It does not run a cloud. By the framework of this article, it should be in the same position as OpenAI: a renter at the mercy of its landlords.</p>
+<p>Anthropic does not own silicon. It does not run a cloud. By this framework, it should be in the same position as OpenAI: a renter at the mercy of landlords.</p>
 
 <p>It is not.</p>
 
-<p>Anthropic made itself the tenant every landlord wants. AWS dedicated 500,000 Trainium2 chips through Project Rainier because Anthropic validates Trainium as frontier grade silicon. Google committed up to one million TPUs because Anthropic validates TPU productization for external customers. Microsoft signed a $30 billion Azure commitment. CoreWeave signed a multi year GPU cloud deal. Four providers, each with their own strategic reason to prioritize Anthropic's workloads over other customers.</p>
+<p>Anthropic made itself the tenant every landlord wants. AWS dedicated 500,000 Trainium2 chips because Anthropic validates Trainium as frontier grade. Google committed up to one million TPUs because Anthropic validates TPU productization. Microsoft signed a $30 billion Azure commitment. CoreWeave signed a multi year deal. Four providers, each with a strategic reason to prioritize Anthropic over everyone else.</p>
 
-<p>The numbers reflect this leverage. Run rate revenue crossed $30 billion in early 2026, roughly triple what it was at the end of 2025. When AWS experienced an outage recently, Claude kept running because traffic shifted to Google infrastructure without interruption.</p>
-
-<p>Anthropic is also starting to build beyond renting. A $50 billion data center partnership with Fluidstack will bring custom facilities online throughout 2026, and the company is in early stage exploration of designing its own chips. Neither move is close to production, but both signal that Anthropic understands the preferred tenant position is powerful but not permanent.</p>
-
-<p>The risk: training frontier models across Trainium, TPUs, NVIDIA GPUs, and CoreWeave simultaneously requires engineering investment that single cloud labs avoid. And four landlords competing for your tenancy today could become less generous when their own first party models catch up.</p>
+<p>Run rate revenue crossed $30 billion in early 2026, roughly triple late 2025. When AWS had an outage recently, Claude kept running because traffic shifted to Google without interruption. A $50 billion Fluidstack data center partnership comes online in 2026, and early stage work on custom chip design has begun. Both signal that Anthropic understands the preferred tenant position is powerful but not permanent.</p>
 
 <h3>The Exposed: OpenAI</h3>
 
 <p>OpenAI has 800 million weekly active users. Roughly 5% of them pay.</p>
 
-<p>Sit with that for a moment. Approximately 760 million people use ChatGPT every week on compute that OpenAI rents, and those users generate zero revenue. Every free message competes internally with paid API tokens for the same rented GPU pool. Estimated annual compute costs run around $17 billion against roughly $13 billion in annualized revenue.</p>
+<p>Sit with that. Approximately 760 million people use ChatGPT every week on rented compute and generate zero revenue. Every free message competes internally with paid API tokens for the same GPU pool. Compute costs run around $17 billion annually against roughly $13 billion in annualized revenue. The company spends more on rented compute than it earns from customers.</p>
 
-<p>The company spends more on rented compute than it earns from customers.</p>
-
-<p>When the other archetypes face compute scarcity, they reallocate. Microsoft moves GPU hours from Azure customers to Copilot. Amazon moves GPU hours from customers to Anthropic. These are trades between options, and they can be reversed. OpenAI's only immediate tool is cruder: on April 26, 2026, it shut down Sora to redirect rented compute toward coding agents and enterprise APIs. Token usage across the API had jumped from 6 billion per minute in October to 15 billion by March. CFO Sarah Friar told the Wall Street Journal she spends most of her time hunting for near term compute capacity.</p>
-
-<p>OpenAI has announced massive infrastructure plans: the $500 billion Stargate project with SoftBank and Oracle, and a custom inference chip codenamed Titan with Broadcom. But the first Stargate sites are not yet online, and Titan is not in production until late 2026. The Sora shutdown happened because OpenAI is, right now, a pure renter. The announced plans are the company's admission that the renter position is unsustainable at frontier scale.</p>
+<p>When other archetypes face scarcity, they reallocate between options. OpenAI's only tool is cruder. On April 26, 2026, it shut down Sora to redirect compute toward coding agents and enterprise APIs. Token usage across the API had jumped from 6 billion per minute in October to 15 billion by March. CFO Sarah Friar told the Wall Street Journal she spends most of her time hunting for near term capacity. The $500 billion Stargate project and the Titan inference chip are the company's admission that pure renting is unsustainable at frontier scale. Neither helps in the next four quarters.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-05.png" alt="When Compute Gets Scarce, What Does Each Archetype Do?">
 
@@ -128,57 +104,57 @@ hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
 
 <h2>Which Positions Survive 2028?</h2>
 
-<p>Six archetypes today. Not six in 2028. Opportunity cost logic is dynamic. The GPU hour that is worth more inside Copilot than on Azure today may be worth more in something else by 2027. Here is how each position holds up as the environment moves.</p>
+<p>Six archetypes today. Not six in 2028. Here is how each holds up.</p>
 
-<p><strong>Alphabet (Flywheel): most durable.</strong> TPU production is scaling, Gemini is reaching ChatGPT volumes without paying someone else's rent, and the ad business generates enough cash to absorb any AI Overviews cannibalization. The only scenario that breaks this position is regulatory fragmentation of search, and even then the underlying stack stays intact.</p>
+<p><strong>Alphabet (Flywheel): most durable.</strong> TPUs scale, Gemini reaches ChatGPT volumes without paying rent, ads absorb any cannibalization. Only regulatory fragmentation breaks it.</p>
 
-<p><strong>Meta (Fortress): durable near term, watch 2027.</strong> No external compute customers means no allocation conflicts today. But training frontier models is getting more expensive faster than ad revenue is growing, and Meta has already started buying external capacity. If that trend accelerates, the closed loop advantage narrows into a closed loop dependency.</p>
+<p><strong>Meta (Fortress): durable near term, watch 2027.</strong> Frontier training costs are growing faster than ad revenue, and Meta is already buying external capacity. The closed loop narrows into a closed loop dependency if that trend holds.</p>
 
-<p><strong>Microsoft (Upseller): binary.</strong> The bet is that Copilot retention reaches a level where the Azure revenue sacrificed to rationing is permanently replaced by higher margin SaaS. If Copilot churn proves worse than expected at the 18 month enterprise renewal cycle, this trade reverses publicly and messily. Watch the FY2027 Q2 earnings call.</p>
+<p><strong>Microsoft (Upseller): binary.</strong> The bet is that Copilot retention at the 18 month enterprise renewal cycle justifies the Azure revenue sacrificed today. If Copilot churns badly, the trade reverses publicly. Watch FY2027 Q2.</p>
 
-<p><strong>Amazon (Kingmaker): concentrated.</strong> The position works if Anthropic stays frontier grade. If Claude falls behind Gemini or GPT on any meaningful dimension for two quarters, the equity gain unwinds and Trainium loses its flagship reference customer in the same window. The AWS base business is a buffer, but the strategic bet is genuinely concentrated on a single counterparty.</p>
+<p><strong>Amazon (Kingmaker): concentrated.</strong> The position works if Anthropic stays frontier grade. If Claude falls behind on any dimension for two quarters, the equity gain unwinds and Trainium loses its flagship reference in the same window.</p>
 
-<p><strong>Anthropic (Preferred Tenant): decays through 2028.</strong> Four landlords compete for Anthropic's workloads today because none of them has a competitive first party model. That is the temporary condition. Gemini is already closing the gap. AWS will eventually need to defend Bedrock's in house models. The Fluidstack partnership and the chip exploration are Anthropic's own acknowledgment that the leverage has a shelf life. The open question is not whether it erodes, but how much runway it buys to build real infrastructure ownership before it does.</p>
+<p><strong>Anthropic (Preferred Tenant): decays through 2028.</strong> Four landlords compete for Anthropic today because none has a competitive first party model yet. That condition is temporary. Gemini is closing the gap. The open question is how much runway the leverage buys before it evaporates.</p>
 
-<p><strong>OpenAI (Exposed): fragile until Stargate lands.</strong> The first Stargate sites come online in 2026 to 2027. Titan ships in late 2026. Neither helps in the next four quarters. If the compute crunch tightens meaningfully in 2026, OpenAI hits the wall before its own infrastructure arrives. The Sora shutdown is the preview, not the exception.</p>
+<p><strong>OpenAI (Exposed): fragile until Stargate lands.</strong> First Stargate sites land in 2026 to 2027. Titan ships late 2026. If the crunch tightens in 2026, OpenAI hits the wall before its own infrastructure arrives. Sora is the preview, not the exception.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-09.png" alt="Durability Scorecard: Which Positions Survive 2028?">
 
-<p>One pattern cuts across all six. The most durable positions are not the ones with the best models. They are the ones where the highest value internal use of a GPU hour exceeds the market price for that same hour, and where the company owns enough of the stack that the gap is unlikely to close.</p>
+<p>One pattern cuts through. The most durable positions are not the ones with the best models. They are the ones where the highest value internal use of a GPU hour beats the market price for that same hour, and where the company owns enough of the stack that the gap stays open.</p>
 
 <h2>Where This Framework Breaks</h2>
 
-<p>One caveat worth stating plainly: the framework assumes compute stays scarce. That assumption has a shelf life.</p>
+<p>One caveat: the whole framework assumes compute stays scarce. That assumption has a shelf life.</p>
 
-<p>Inference cost per token has dropped roughly 10x in 18 months across most model tiers. Chinese open source models running on commodity silicon compress the cost further. Algorithmic gains (mixture of experts, speculative decoding, distillation) keep reducing compute per useful output. If that curve continues for another two to three years, the marginal cost of serving a user trends back toward the 2010s norm, and opportunity cost stops being the binding constraint.</p>
+<p>Inference cost per token dropped roughly 10x in 18 months. Chinese open source models on commodity silicon compress it further. Mixture of experts, speculative decoding, and distillation keep cutting compute per useful output. If the curve holds another two or three years, marginal cost trends back toward the 2010s norm and opportunity cost stops being the binding constraint.</p>
 
-<p>If compute becomes abundant again, the archetype moats weaken. The Upseller loses pricing power. The Kingmaker's compute for equity trade deflates. The Preferred Tenant loses the leverage of being courted. The framework is not wrong. It is time bound. Everything in this article is true until one of three things breaks it: cheaper chips, better algorithms, or both at once.</p>
+<p>If compute becomes abundant, the archetype moats weaken. The Upseller loses pricing power. The Kingmaker's compute for equity trade deflates. The Preferred Tenant loses the leverage of being courted. The framework is not wrong. It is time bound. Everything here is true until one of three things breaks it: cheaper chips, better algorithms, or both at once.</p>
 
 <h2>What the Six Archetypes Miss</h2>
 
-<p>This framework covers the five US incumbents and treats the AI economy as theirs. It is not. Mistral runs a European stack with sovereign compute commitments that change the allocation math entirely. DeepSeek and Alibaba train frontier class models on silicon that never enters Western opportunity cost calculations. Sovereign cloud programs in France, India, and the UAE treat "where does this workload run" as a national policy question, not a vendor choice.</p>
+<p>This framework covers five US incumbents and treats the AI economy as theirs. It is not. Mistral runs a European stack with sovereign compute commitments that change the math entirely. DeepSeek and Alibaba train frontier class models on silicon that never enters Western opportunity cost calculations. Sovereign cloud programs in France, India, and the UAE treat "where does this workload run" as a national policy question, not a vendor choice.</p>
 
-<p>For enterprise buyers subject to EU data residency rules or regulated industry constraints, these are not edge cases. They are the default. The six archetypes explain US capital allocation. They do not explain the global AI economy. A seventh archetype, the Sovereign, deserves its own analysis.</p>
+<p>For enterprise buyers under EU data residency or regulated industry constraints, these are not edge cases. They are the default. A seventh archetype, the Sovereign, deserves its own analysis.</p>
 
 <h2>What This Means for Engineers</h2>
 
-<p>If you build on any of these platforms, opportunity cost logic is now your problem too. When Microsoft rations Azure capacity, Copilot gets compute first. When AWS rations, Anthropic's Rainier cluster takes priority. You are not a customer in the traditional sense anymore. You are a bidder in an internal auction you never knew you entered, competing against your vendor's own products for the same silicon.</p>
+<p>If you build on any of these platforms, opportunity cost logic is now your problem. When Microsoft rations Azure, Copilot gets compute first. When AWS rations, Anthropic's Rainier cluster takes priority. You are not a customer in the traditional sense anymore. You are a bidder in an internal auction you never knew you entered, competing against your vendor's own products for the same silicon.</p>
 
-<p>Three concrete moves that take this seriously.</p>
+<p>Three moves, and one pattern to watch.</p>
 
-<p><strong>Build the model agnostic router before you need it.</strong> The goal is that when one provider hits a capacity event (not a full outage, just degraded latency or throttled throughput), traffic shifts without a redeploy. The minimum viable version: an abstraction layer that accepts a request, selects a model based on current health signals (p95 latency, error rate, token throughput), and falls back on degradation. Anthropic's own four provider training posture is the production proof. When AWS had its October outage, Claude kept serving because traffic moved to Google. That architecture is not exotic. It is a router, health checks, a fallback table, a feature flag. Teams that wait until a capacity crunch forces the migration pay for it at the worst possible moment.</p>
+<p><strong>Build the model agnostic router before you need it.</strong> When a provider degrades (not a full outage, just throttled throughput or higher latency), traffic should shift without a redeploy. Minimum viable version: an abstraction layer that picks a model based on live health signals (p95 latency, error rate, token throughput) and falls back on degradation. Anthropic's own four provider training posture is the production proof. When AWS went down in October, Claude kept serving because traffic moved to Google. This is a router, health checks, a fallback table, a feature flag. Not exotic. Teams that wait until a capacity crunch forces the migration pay for it at the worst possible moment.</p>
 
-<p><strong>Model your reserved vs on demand breakeven, then commit.</strong> Reserved instances and committed use contracts exist precisely for the scenario this article describes. The breakeven logic is unambiguous: if expected utilization is above roughly 60 to 70 percent for one year commits, or higher for three year, committed capacity pays off before the term ends. The less obvious benefit is queue priority. In a capacity constrained environment, committed customers get served first, and on demand customers absorb the rationing. If your architecture cannot tolerate capacity rationing, you are buying on demand because it is easier to reason about, not because it is cheaper. Run the math. Sign the contract.</p>
+<p><strong>Model your reserved vs on demand breakeven, then commit.</strong> If expected utilization sits above roughly 60 to 70 percent for a one year commit, committed capacity pays off before the term ends. The less obvious benefit is queue priority. In a constrained environment, committed customers get served first. On demand customers absorb the rationing. If you are buying on demand because it is easier to reason about, not because it is cheaper, you are paying for cognitive convenience with SLA risk.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-07.png" alt="Opportunity Cost Logic Propagates Downward">
 
-<p><strong>Instrument cost per feature shipped, including compute.</strong> Most engineering teams track ship velocity. Few track the compute spend that underwrote each shipped feature. Teams that combine both numbers make dramatically better prioritization calls. Concretely: tag every GPU hour in your experimentation and production environments with the feature or experiment it supports. Roll up monthly by feature. Ratio that against revenue impact or user activation. The insights are often unpleasant. The fine tuning run that cost $40K of compute for a 0.3 percent accuracy gain on a feature with 200 monthly active users was probably not worth it. You only know once you measure. Nadella style scarcity reasoning should operate inside your sprint planning, not just inside hyperscaler earnings calls.</p>
+<p><strong>Instrument cost per feature shipped, including compute.</strong> Most teams track ship velocity. Few track the compute spend behind each shipped feature. Tag every GPU hour in experimentation and production with the feature it supports. Roll up monthly. Ratio against revenue impact or user activation. The insights are often unpleasant. The fine tuning run that cost $40K for a 0.3 percent accuracy gain on a feature with 200 monthly users was probably not worth it. You only know once you measure. Nadella style scarcity reasoning belongs in your sprint planning, not just in hyperscaler earnings calls.</p>
 
-<p><strong>One pattern worth watching: the Sora shutdown.</strong> If your cloud vendor ships a consumer product running on the same infrastructure that serves your enterprise workload, assume your priority degrades the moment that product scales. OpenAI's Sora went from viral launch to shutdown in under a year because the compute it consumed was worth more elsewhere. Bedrock customers had latency quietly deprioritized during Project Rainier's scale up. Azure customers had capacity explicitly rationed when Copilot needed it. Your workload is not immune. Negotiate capacity guarantees, sign reserved instance contracts, or build migration paths before a consumer product launches on shared infrastructure. Once the priority inversion happens, unwinding it is expensive.</p>
+<p><strong>One pattern to watch: the Sora shutdown.</strong> If your cloud vendor ships a consumer product on the same infrastructure that serves your enterprise workload, assume your priority degrades the moment that product scales. Sora went from viral launch to shutdown in under a year because the compute was worth more elsewhere. Bedrock latency was quietly deprioritized during Rainier scale up. Azure capacity was explicitly rationed for Copilot. Your workload is not immune. Negotiate guarantees, sign reserved contracts, or build migration paths before the next consumer product launches on shared infrastructure. Once the priority inversion happens, unwinding it is expensive.</p>
 
 <img src="https://raw.githubusercontent.com/Cozypet/gpu-opportunity-cost/main/diagrams/diagram-08.png" alt="The Sora Pattern: From Viral Launch to Shutdown in Under a Year">
 
-<p>Compute allocation is now strategy at every level of the stack, all the way down to the sprint backlog. The companies that thrive are not the ones with the cheapest per token cost or the biggest GPU pool. They are the ones who know, for every hour, what alternative use they are choosing against, and whether that choice still makes sense. The hyperscalers publish their allocation logic on earnings calls every 90 days. You should be publishing yours in your team's retro every sprint.</p>
+<p>Compute allocation is strategy at every level of the stack, down to the sprint backlog. The companies that thrive are not the ones with the cheapest per token cost or the biggest GPU pool. They are the ones who know, for every hour, what alternative they are choosing against, and whether that choice still holds. The hyperscalers publish their allocation logic on earnings calls every 90 days. You should publish yours in your team's retro every sprint.</p>
 
 <hr>
 
