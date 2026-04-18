@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #141413;
+  --light: #faf9f5;
+  --mid-gray: #b0aea5;
+  --light-gray: #e8e6dc;
+  --orange: #d97757;
+  --blue: #6a9bcc;
+  --green: #788c5d;
+  --dark-soft: #2d2d2a;
+  --dark-muted: #5c5b55;
+  --dark-faint: #8a8880;
+  --orange-soft: #faf0eb;
+  --orange-mid: #ecc4b3;
+  --blue-soft: #eef4f9;
+  --blue-mid: #b8d4e8;
+  --green-soft: #f0f3ec;
+  --green-mid: #c0ccae;
+  --warm-bg: #f2f1ed;
+  --border: #e0ded6;
+  --border-soft: #eae8e2;
+  --red: #b54a3a;
+  --red-soft: #f9efed;
+  --red-mid: #dab5b0;
+  --amber: #b8923e;
+  --amber-soft: #f9f3e6;
+  --amber-mid: #dfc88e;
+  --purple: #7c6faa;
+  --purple-soft: #f0eef8;
+  --purple-mid: #c5bfe0;
+  --shadow-md: 0 4px 14px rgba(20,20,19,0.06), 0 1px 4px rgba(20,20,19,0.03);
+  --shadow-sm: 0 1px 3px rgba(20,20,19,0.04), 0 1px 2px rgba(20,20,19,0.03);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--warm-bg);
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+.diagram-container {
+  max-width: 780px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+.card {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  padding: 44px 36px 32px;
+  position: relative;
+}
+.card-number {
+  position: absolute;
+  top: 20px; right: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 400;
+  color: var(--mid-gray);
+}
+.card-title {
+  font-size: 26px; font-weight: 700;
+  color: var(--dark); line-height: 1.2;
+  margin-bottom: 8px;
+}
+.card-sub {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted); line-height: 1.5;
+  margin-bottom: 32px;
+}
+.attribution {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 300;
+  color: var(--mid-gray);
+  text-align: right; margin-top: 28px;
+}
+.callout {
+  border-radius: 6px;
+  padding: 14px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 400;
+  line-height: 1.45; text-align: center;
+  margin-top: 24px;
+}
+.callout-orange { background: var(--orange-soft); color: var(--orange); border: 1px solid var(--orange-mid); }
+.callout-green { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-mid); }
+.callout-blue { background: var(--blue-soft); color: var(--blue); border: 1px solid var(--blue-mid); }
+
+/* =========== D01: TWO ERAS =========== */
+.eras-grid {
+  display: grid;
+  grid-template-columns: 1fr 18px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+.era-card {
+  border-radius: 8px;
+  padding: 28px 24px;
+  border: 1px solid;
+}
+.era-card.old { background: var(--light); border-color: var(--border); }
+.era-card.new { background: var(--orange-soft); border-color: var(--orange-mid); }
+.era-divider {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px; font-weight: 600;
+  color: var(--mid-gray);
+}
+.era-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+.era-card.old .era-label { color: var(--dark-faint); }
+.era-card.new .era-label { color: var(--orange); }
+.era-question {
+  font-size: 20px; font-weight: 600;
+  color: var(--dark); line-height: 1.35;
+  margin-bottom: 16px;
+}
+.era-details {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted); line-height: 1.5;
+}
+.era-details strong {
+  font-weight: 600; color: var(--dark-soft);
+}
+
+/* =========== D02: CAPEX BAR CHART =========== */
+.capex-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 320px;
+  padding: 0 20px;
+  border-bottom: 2px solid var(--light-gray);
+  margin-bottom: 20px;
+}
+.capex-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.capex-bar {
+  width: 80px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14px;
+}
+.capex-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px; font-weight: 600;
+  color: var(--light);
+}
+.capex-company {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark-muted);
+  margin-top: 10px;
+}
+.capex-note {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-faint);
+  text-align: center;
+}
+
+/* =========== D03: SIX ARCHETYPES GRID =========== */
+.archetype-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.archetype-cell {
+  border-radius: 8px;
+  padding: 24px 22px 20px;
+  border: 1px solid;
+}
+.archetype-cell.upseller { background: var(--orange-soft); border-color: var(--orange-mid); }
+.archetype-cell.flywheel { background: var(--blue-soft); border-color: var(--blue-mid); }
+.archetype-cell.backer { background: var(--green-soft); border-color: var(--green-mid); }
+.archetype-cell.fortress { background: var(--amber-soft); border-color: var(--amber-mid); }
+.archetype-cell.preferred { background: var(--purple-soft); border-color: var(--purple-mid); }
+.archetype-cell.tenant { background: var(--red-soft); border-color: var(--red-mid); }
+
+.archetype-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.archetype-cell.upseller .archetype-icon { background: var(--orange); }
+.archetype-cell.flywheel .archetype-icon { background: var(--blue); }
+.archetype-cell.backer .archetype-icon { background: var(--green); }
+.archetype-cell.fortress .archetype-icon { background: var(--amber); }
+.archetype-cell.preferred .archetype-icon { background: var(--purple); }
+.archetype-cell.tenant .archetype-icon { background: var(--red); }
+
+.archetype-name { font-size: 20px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+.archetype-company {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark-faint); text-transform: uppercase;
+  letter-spacing: 0.8px; margin-bottom: 12px;
+}
+.archetype-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px; font-weight: 600;
+  color: var(--dark); margin-bottom: 6px;
+}
+.archetype-desc {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted); line-height: 1.45;
+}
+
+/* =========== D04: STACK OWNERSHIP MATRIX =========== */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.matrix-table th, .matrix-table td {
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 18px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.matrix-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; color: var(--dark-faint);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  border-bottom: 2px solid var(--light-gray);
+}
+.matrix-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--dark);
+}
+.matrix-table tr:last-child td { border-bottom: none; }
+.check {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--green-soft); border: 1px solid var(--green-mid);
+}
+.cross {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--red-soft); border: 1px solid var(--red-mid);
+}
+.partial {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--amber-soft); border: 1px solid var(--amber-mid);
+}
+
+/* =========== D05: REALLOCATION OPTIONS =========== */
+.realloc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.realloc-row-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin-top: 14px;
+}
+.realloc-card {
+  border-radius: 8px;
+  padding: 22px 18px 18px;
+  text-align: center;
+  border: 1px solid;
+}
+.realloc-card.positive { background: var(--green-soft); border-color: var(--green-mid); }
+.realloc-card.neutral { background: var(--blue-soft); border-color: var(--blue-mid); }
+.realloc-card.negative { background: var(--red-soft); border-color: var(--red-mid); }
+
+.realloc-company {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark-faint); text-transform: uppercase;
+  letter-spacing: 0.8px; margin-bottom: 10px;
+}
+.realloc-from {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 400;
+  color: var(--dark-faint);
+  text-decoration: line-through; opacity: 0.7;
+}
+.realloc-arrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 24px; color: var(--mid-gray);
+  margin: 8px 0;
+}
+.realloc-to {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark);
+}
+.realloc-outcome {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted);
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+  line-height: 1.45;
+}
+
+/* =========== D06: REVENUE SPECTRUM =========== */
+.spectrum-container {
+  position: relative;
+  padding: 0 0 20px;
+}
+.spectrum-bar {
+  height: 8px;
+  background: linear-gradient(to right, var(--red), var(--amber), var(--green));
+  border-radius: 4px;
+  margin: 20px 0 40px;
+}
+.spectrum-items {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.spectrum-item {
+  flex: 1;
+  text-align: center;
+}
+.spectrum-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+.spectrum-company {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark); margin-bottom: 4px;
+}
+.spectrum-yield {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px; font-weight: 600;
+  color: var(--dark); margin-bottom: 6px;
+}
+.spectrum-desc {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted); line-height: 1.4;
+}
+.spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.spectrum-label-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 400;
+  color: var(--dark-faint);
+}
+
+/* =========== D07: CONCENTRIC RINGS =========== */
+.rings-container {
+  display: flex; justify-content: center; padding: 10px 0;
+}
+.rings-wrapper {
+  position: relative; width: 540px; height: 540px;
+}
+.ring {
+  position: absolute; border-radius: 50%;
+}
+.ring-outer {
+  width: 540px; height: 540px;
+  background: var(--orange-soft);
+  border: 2px solid var(--orange-mid);
+  top: 0; left: 0;
+}
+.ring-middle {
+  width: 360px; height: 360px;
+  background: var(--blue-soft);
+  border: 2px solid var(--blue-mid);
+  top: 90px; left: 90px;
+}
+.ring-inner {
+  width: 190px; height: 190px;
+  background: var(--green-soft);
+  border: 2px solid var(--green-mid);
+  top: 175px; left: 175px;
+}
+.ring-label {
+  font-weight: 600; text-align: center;
+  line-height: 1.3; position: absolute;
+}
+.ring-label-outer {
+  font-size: 18px; color: var(--orange);
+  top: 30px; left: 50%; transform: translateX(-50%); width: 240px;
+}
+.ring-label-middle {
+  font-size: 18px; color: var(--blue);
+  top: 108px; left: 50%; transform: translateX(-50%); width: 220px;
+}
+.ring-label-inner {
+  font-size: 18px; color: var(--green);
+  top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150px;
+}
+.ring-question {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 400;
+  color: var(--dark-muted); text-align: center;
+  position: absolute; line-height: 1.35;
+}
+.ring-q-outer {
+  bottom: 30px; left: 50%; transform: translateX(-50%); width: 320px;
+}
+.ring-q-middle {
+  bottom: 112px; left: 50%; transform: translateX(-50%); width: 250px;
+}
+
+/* =========== D08: SORA TIMELINE =========== */
+.timeline {
+  position: relative;
+  padding: 10px 0 10px 40px;
+}
+.timeline-line {
+  position: absolute;
+  left: 18px; top: 0; bottom: 0;
+  width: 2px; background: var(--light-gray);
+}
+.timeline-item {
+  position: relative;
+  padding: 0 0 36px 36px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute;
+  left: -31px; top: 4px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.timeline-dot.green { background: var(--green-soft); border-color: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
+.timeline-dot.amber { background: var(--amber-soft); border-color: var(--amber); box-shadow: 0 0 0 4px var(--amber-soft); }
+.timeline-dot.orange { background: var(--orange-soft); border-color: var(--orange); box-shadow: 0 0 0 4px var(--orange-soft); }
+.timeline-dot.red { background: var(--red-soft); border-color: var(--red); box-shadow: 0 0 0 4px var(--red-soft); }
+
+.timeline-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px; font-weight: 500;
+  color: var(--dark-faint); margin-bottom: 4px;
+}
+.timeline-title {
+  font-size: 20px; font-weight: 600;
+  color: var(--dark); margin-bottom: 6px;
+}
+.timeline-desc {
+  font-size: 18px; font-weight: 300;
+  color: var(--dark-muted); line-height: 1.45;
+}
+</style>
+</head>
+<body>
+
+<!-- D01: TWO ERAS -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">01 / 08</div>
+    <div class="card-title">The Shift Nobody Named</div>
+    <div class="card-sub">From "grab users at any cost" to "which use of this GPU-hour returns the most?"</div>
+    <div class="card-body">
+      <div class="eras-grid">
+        <div class="era-card old">
+          <div class="era-label" style="color:var(--dark-faint)">Marginal-Cost Era</div>
+          <div class="era-question">"How do we acquire more users?"</div>
+          <div class="era-details"><strong>Marginal cost per user:</strong> ~$0<br><br><strong>Strategy:</strong> Grab users now, monetize later<br><br><strong>Constraint:</strong> Distribution and attention</div>
+        </div>
+        <div class="era-divider">&rarr;</div>
+        <div class="era-card new">
+          <div class="era-label" style="color:var(--orange)">Opportunity-Cost Era</div>
+          <div class="era-question">"What returns the most per GPU-hour?"</div>
+          <div class="era-details"><strong>Marginal cost per user:</strong> $1.50 to $7/hr<br><br><strong>Strategy:</strong> Allocate compute to highest-value use<br><br><strong>Constraint:</strong> GPU capacity and energy</div>
+        </div>
+      </div>
+    </div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D02: CAPEX BAR CHART -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">02 / 08</div>
+    <div class="card-title">2025 Capital Expenditure: The Scale of the Bet</div>
+    <div class="card-sub">Four companies will spend over $380 billion on AI infrastructure in a single year</div>
+    <div class="card-body">
+      <div class="capex-bars">
+        <div class="capex-bar-wrapper">
+          <div class="capex-bar" style="height:260px;background:var(--orange)"><div class="capex-value">$140B</div></div>
+          <div class="capex-company">MSFT</div>
+        </div>
+        <div class="capex-bar-wrapper">
+          <div class="capex-bar" style="height:230px;background:var(--blue)"><div class="capex-value">$93B</div></div>
+          <div class="capex-company">GOOGL</div>
+        </div>
+        <div class="capex-bar-wrapper">
+          <div class="capex-bar" style="height:245px;background:var(--green)"><div class="capex-value">$125B</div></div>
+          <div class="capex-company">AMZN</div>
+        </div>
+        <div class="capex-bar-wrapper">
+          <div class="capex-bar" style="height:160px;background:var(--amber)"><div class="capex-value">$72B</div></div>
+          <div class="capex-company">META</div>
+        </div>
+      </div>
+      <div class="capex-note">All figures: full-year 2025 guidance or estimates. Sources: Q3 2025 earnings calls.</div>
+    </div>
+    <div class="callout callout-orange">Demand outstrips supply through at least 2029 (Bank of America)</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D03: SIX ARCHETYPES GRID -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">03 / 08</div>
+    <div class="card-title">Six Archetypes of Opportunity-Cost Strategy</div>
+    <div class="card-sub">Stack position determines archetype. Archetype determines strategic options.</div>
+    <div class="card-body">
+      <div class="archetype-grid">
+        <div class="archetype-cell upseller">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <div class="archetype-name">The Upseller</div>
+          <div class="archetype-company">Microsoft</div>
+          <div class="archetype-number">$5.4B ARR</div>
+          <div class="archetype-desc">Wraps raw compute into $30/seat Copilot subscriptions at ~10x the IaaS yield</div>
+        </div>
+        <div class="archetype-cell flywheel">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="archetype-name">The Flywheel</div>
+          <div class="archetype-company">Alphabet</div>
+          <div class="archetype-number">7B tokens/min</div>
+          <div class="archetype-desc">Owns silicon, cloud, consumer AI, and the $300B+ ad business they all feed</div>
+        </div>
+        <div class="archetype-cell backer">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 100 4h4a2 2 0 110 4H8"/><path d="M12 18V6"/></svg></div>
+          <div class="archetype-name">The Backer</div>
+          <div class="archetype-company">Amazon</div>
+          <div class="archetype-number">$9.5B gain / Q</div>
+          <div class="archetype-desc">Trades 500K chips to Anthropic for equity + silicon validation</div>
+        </div>
+        <div class="archetype-cell fortress">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+          <div class="archetype-name">The Fortress</div>
+          <div class="archetype-company">Meta</div>
+          <div class="archetype-number">3.54B DAU</div>
+          <div class="archetype-desc">No cloud business. Every GPU feeds one customer: itself.</div>
+        </div>
+        <div class="archetype-cell preferred">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="archetype-name">The Preferred Tenant</div>
+          <div class="archetype-company">Anthropic</div>
+          <div class="archetype-number">$30B run-rate</div>
+          <div class="archetype-desc">Three landlords compete for its tenancy. Multi-cloud = leverage.</div>
+        </div>
+        <div class="archetype-cell tenant">
+          <div class="archetype-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#faf9f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+          <div class="archetype-name">The Tenant</div>
+          <div class="archetype-company">OpenAI</div>
+          <div class="archetype-number">$17B compute / yr</div>
+          <div class="archetype-desc">Rents everything. Only reallocation tool: kill shipped products.</div>
+        </div>
+      </div>
+    </div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D04: STACK OWNERSHIP MATRIX -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">04 / 08</div>
+    <div class="card-title">What Each Archetype Owns in the Stack</div>
+    <div class="card-sub">The more layers you own, the more reallocation options you have</div>
+    <div class="card-body">
+      <table class="matrix-table">
+        <thead>
+          <tr><th style="text-align:left">Company</th><th>Silicon</th><th>Cloud</th><th>1st-Party Product</th><th>Ad Business</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Microsoft</td><td><span class="partial"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5"><path d="M12 2v20M2 12h20"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td></tr>
+          <tr><td>Alphabet</td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td></tr>
+          <tr><td>Amazon</td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="partial"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5"><path d="M12 2v20M2 12h20"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td></tr>
+          <tr><td>Meta</td><td><span class="partial"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5"><path d="M12 2v20M2 12h20"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td></tr>
+          <tr><td>Anthropic</td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td></tr>
+          <tr><td>OpenAI</td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td><td><span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span></td><td><span class="cross"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-blue">Alphabet is the only company with all four layers. OpenAI and Anthropic own only their product.</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D05: REALLOCATION OPTIONS -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">05 / 08</div>
+    <div class="card-title">When Compute Gets Scarce, What Does Each Archetype Do?</div>
+    <div class="card-sub">Integrated players reallocate. Pure renters cut.</div>
+    <div class="card-body">
+      <div class="realloc-grid">
+        <div class="realloc-card positive">
+          <div class="realloc-company">Microsoft</div>
+          <div class="realloc-from">Azure IaaS customers</div>
+          <div class="realloc-arrow">&darr;</div>
+          <div class="realloc-to">M365 Copilot seats</div>
+          <div class="realloc-outcome">Low-yield IaaS to high-yield SaaS. Both internal.</div>
+        </div>
+        <div class="realloc-card positive">
+          <div class="realloc-company">Alphabet</div>
+          <div class="realloc-from">External GCP customers</div>
+          <div class="realloc-arrow">&darr;</div>
+          <div class="realloc-to">AI Overviews + Search</div>
+          <div class="realloc-outcome">Feeds the $300B ad flywheel. Every hour compounds.</div>
+        </div>
+        <div class="realloc-card neutral">
+          <div class="realloc-company">Amazon</div>
+          <div class="realloc-from">Bedrock inference</div>
+          <div class="realloc-arrow">&darr;</div>
+          <div class="realloc-to">Anthropic (Rainier)</div>
+          <div class="realloc-outcome">Pays in compute. Redeems in equity + silicon.</div>
+        </div>
+      </div>
+      <div class="realloc-row-2">
+        <div class="realloc-card positive">
+          <div class="realloc-company">Meta</div>
+          <div class="realloc-from" style="text-decoration:none;opacity:1;color:var(--dark-muted);font-style:italic">No external customers</div>
+          <div class="realloc-arrow" style="color:var(--green)">&#10003;</div>
+          <div class="realloc-to">All internal, always</div>
+          <div class="realloc-outcome">No tradeoff. Every GPU already feeds the product.</div>
+        </div>
+        <div class="realloc-card neutral">
+          <div class="realloc-company">Anthropic</div>
+          <div class="realloc-from">Single-cloud risk</div>
+          <div class="realloc-arrow">&darr;</div>
+          <div class="realloc-to">Multi-cloud failover</div>
+          <div class="realloc-outcome">AWS down? Traffic shifts to Google. Leverage.</div>
+        </div>
+        <div class="realloc-card negative">
+          <div class="realloc-company">OpenAI</div>
+          <div class="realloc-from">Sora (consumer)</div>
+          <div class="realloc-arrow">&darr;</div>
+          <div class="realloc-to">Coding agents + API</div>
+          <div class="realloc-outcome">Killed a product. Only option for a pure renter.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-orange">The more you own in the stack, the more reallocation options you have</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D06: REVENUE SPECTRUM -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">06 / 08</div>
+    <div class="card-title">Revenue Per GPU-Hour Across Archetypes</div>
+    <div class="card-sub">The integrated players extract dramatically more value from the same silicon</div>
+    <div class="card-body">
+      <div class="spectrum-container">
+        <div class="spectrum-bar"></div>
+        <div class="spectrum-items">
+          <div class="spectrum-item">
+            <div class="spectrum-dot" style="background:var(--red)"></div>
+            <div class="spectrum-company">OpenAI</div>
+            <div class="spectrum-yield">Negative</div>
+            <div class="spectrum-desc">Spends $17B, earns $13B</div>
+          </div>
+          <div class="spectrum-item">
+            <div class="spectrum-dot" style="background:var(--amber)"></div>
+            <div class="spectrum-company">IaaS</div>
+            <div class="spectrum-yield">$3 to $7/hr</div>
+            <div class="spectrum-desc">Raw compute rental rate</div>
+          </div>
+          <div class="spectrum-item">
+            <div class="spectrum-dot" style="background:var(--orange)"></div>
+            <div class="spectrum-company">Copilot</div>
+            <div class="spectrum-yield">~10x IaaS</div>
+            <div class="spectrum-desc">$30/seat bundled SaaS</div>
+          </div>
+          <div class="spectrum-item">
+            <div class="spectrum-dot" style="background:var(--green)"></div>
+            <div class="spectrum-company">Search Ads</div>
+            <div class="spectrum-yield">Highest</div>
+            <div class="spectrum-desc">Feeds $300B+ flywheel</div>
+          </div>
+        </div>
+        <div class="spectrum-labels">
+          <div class="spectrum-label-text">Lower yield per GPU-hour</div>
+          <div class="spectrum-label-text">Higher yield per GPU-hour</div>
+        </div>
+      </div>
+    </div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D07: CONCENTRIC RINGS -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">07 / 08</div>
+    <div class="card-title">Opportunity-Cost Logic Propagates Downward</div>
+    <div class="card-sub">Every layer of the stack faces the same question: what is this compute-hour worth?</div>
+    <div class="card-body">
+      <div class="rings-container">
+        <div class="rings-wrapper">
+          <div class="ring ring-outer">
+            <div class="ring-label ring-label-outer">Hyperscaler Allocation</div>
+            <div class="ring-question ring-q-outer">"Sell this hour as IaaS, or use it for Copilot / Search / Anthropic?"</div>
+          </div>
+          <div class="ring ring-middle">
+            <div class="ring-label ring-label-middle">Platform Customer</div>
+            <div class="ring-question ring-q-middle">"Where am I in my vendor's priority stack?"</div>
+          </div>
+          <div class="ring ring-inner">
+            <div class="ring-label ring-label-inner">Your Team</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--dark-muted)">Inner ring: "Is this GPU-hour shipping a feature, or burning on experimentation?"</span>
+      </div>
+    </div>
+    <div class="callout callout-green">Compute allocation is now strategy at every level, all the way down to the sprint backlog</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+<!-- D08: SORA TIMELINE -->
+<div class="diagram-container">
+  <div class="card">
+    <div class="card-number">08 / 08</div>
+    <div class="card-title">The Sora Pattern: From Viral Launch to Shutdown in Under a Year</div>
+    <div class="card-sub">What happens when a pure renter's product scales faster than its rented capacity</div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-item">
+          <div class="timeline-dot green"></div>
+          <div class="timeline-date">Feb 2025</div>
+          <div class="timeline-title">Sora launches</div>
+          <div class="timeline-desc">OpenAI releases its video generation app to broad consumer access</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot amber"></div>
+          <div class="timeline-date">Oct 2025</div>
+          <div class="timeline-title">API token usage: 6B per minute</div>
+          <div class="timeline-desc">Compute demand is growing but still manageable across the fleet</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot orange"></div>
+          <div class="timeline-date">Nov 2025</div>
+          <div class="timeline-title">"Our GPUs are melting"</div>
+          <div class="timeline-desc">Head of Sora rations free users to 6 videos/day. Compute is scarce.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot orange"></div>
+          <div class="timeline-date">Mar 2026</div>
+          <div class="timeline-title">API token usage: 15B per minute</div>
+          <div class="timeline-desc">2.5x increase in 5 months. CFO spends most of her time hunting capacity.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot red"></div>
+          <div class="timeline-date">Apr 26, 2026</div>
+          <div class="timeline-title">Sora shuts down</div>
+          <div class="timeline-desc">Rented compute redirected to coding agents and enterprise APIs (codename "Spud")</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-orange">If your vendor ships a consumer product on your infrastructure, watch for this pattern</div>
+    <div class="attribution">Created by Han HELOIR YAN</div>
+  </div>
+</div>
+
+</body>
+</html>
