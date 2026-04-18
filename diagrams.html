@@ -706,30 +706,44 @@ body {
   </div>
 </div>
 
-<!-- D07: CONCENTRIC RINGS -->
+<!-- D07: PROPAGATION LAYERS -->
 <div class="diagram-container">
   <div class="card">
     <div class="card-number">07 / 08</div>
     <div class="card-title">Opportunity-Cost Logic Propagates Downward</div>
     <div class="card-sub">Every layer of the stack faces the same question: what is this compute-hour worth?</div>
     <div class="card-body">
-      <div class="rings-container">
-        <div class="rings-wrapper">
-          <div class="ring ring-outer">
-            <div class="ring-label ring-label-outer">Hyperscaler Allocation</div>
-            <div class="ring-question ring-q-outer">"Sell this hour as IaaS, or use it for Copilot / Search / Anthropic?"</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <!-- Layer 1: Hyperscaler -->
+        <div style="background:var(--orange-soft);border:2px solid var(--orange-mid);border-radius:10px;padding:28px 28px 0;position:relative">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+            <div>
+              <div style="font-size:20px;font-weight:700;color:var(--orange);margin-bottom:6px">Hyperscaler Allocation</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:400;color:var(--dark-muted);line-height:1.4">"Sell this hour as IaaS, or use it for Copilot / Search / Anthropic?"</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;color:var(--orange);white-space:nowrap;margin-left:20px">MSFT / GOOGL / AMZN</div>
           </div>
-          <div class="ring ring-middle">
-            <div class="ring-label ring-label-middle">Platform Customer</div>
-            <div class="ring-question ring-q-middle">"Where am I in my vendor's priority stack?"</div>
-          </div>
-          <div class="ring ring-inner">
-            <div class="ring-label ring-label-inner">Your Team</div>
+          <!-- Layer 2: Platform Customer -->
+          <div style="background:var(--blue-soft);border:2px solid var(--blue-mid);border-radius:10px;padding:28px 28px 0">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+              <div>
+                <div style="font-size:20px;font-weight:700;color:var(--blue);margin-bottom:6px">Platform Customer Allocation</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:400;color:var(--dark-muted);line-height:1.4">"Where am I in my vendor's priority stack?"</div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;color:var(--blue);white-space:nowrap;margin-left:20px">Your Company</div>
+            </div>
+            <!-- Layer 3: Team -->
+            <div style="background:var(--green-soft);border:2px solid var(--green-mid);border-radius:10px;padding:28px;margin-bottom:28px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font-size:20px;font-weight:700;color:var(--green);margin-bottom:6px">Team-Level Allocation</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:400;color:var(--dark-muted);line-height:1.4">"Is this GPU-hour shipping a feature, or burning on experimentation?"</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;color:var(--green);white-space:nowrap;margin-left:20px">Your Team</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="text-align:center;margin-top:12px">
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--dark-muted)">Inner ring: "Is this GPU-hour shipping a feature, or burning on experimentation?"</span>
       </div>
     </div>
     <div class="callout callout-green">Compute allocation is now strategy at every level, all the way down to the sprint backlog</div>
